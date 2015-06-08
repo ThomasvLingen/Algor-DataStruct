@@ -27,7 +27,7 @@ public class Sorter {
 
         for(outer = toSort.length-1; outer > 0; outer--){
             for(inner=0; inner < outer; inner++){
-                if(toSort[inner].compareTo(toSort[inner+1]) >= 0){
+                if(toSort[inner].compareTo(toSort[inner + 1]) >= 0){
                     copy = toSort[inner];
                     toSort[inner] = toSort[inner+1];
                     toSort[inner+1] = copy;
@@ -79,5 +79,34 @@ public class Sorter {
         long end_time = System.nanoTime();
         double difference = (end_time - start_time)/1e6;
         System.out.println("time taken: " + difference);
+    }
+
+    //Make note that sortedIndex should indicate the index from which on the array is already sorted
+    //Therefore 7, for an array of the size of 10, would indicate that 7-9 is sorted.
+    public static void insertionSortArray(int[] toSort, int sortedIndex){
+        long start_time = System.nanoTime();
+        for(int currentSortingIndex = sortedIndex-1; currentSortingIndex >= 0; currentSortingIndex--){
+            int copy = toSort[currentSortingIndex];
+            for(int currentCompareIndex = currentSortingIndex+1; currentCompareIndex <= toSort.length; currentCompareIndex++){
+                if(currentCompareIndex < toSort.length){
+                    if(copy > toSort[currentCompareIndex]) {
+                        toSort[currentCompareIndex - 1] = toSort[currentCompareIndex];
+                    } else {
+                        toSort[currentCompareIndex-1] = copy;
+                        break;
+                    }
+                } else {
+                    toSort[toSort.length-1] = copy;
+                    break;
+                }
+            }
+        }
+        long end_time = System.nanoTime();
+        double difference = (end_time - start_time)/1e6;
+        System.out.println("time taken: " + difference);
+    }
+
+    public static void insertionSortArray(int[] toSort){
+        insertionSortArray(toSort, toSort.length-1);
     }
 }
